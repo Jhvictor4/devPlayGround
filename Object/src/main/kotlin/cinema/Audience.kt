@@ -6,7 +6,16 @@ import java.time.LocalDateTime
 /**
  * 관광객은 가방을 소지할 수 있다.
  */
-class Audience(val bag: Bag)
+class Audience(private val bag: Bag) {
+    fun buy(ticket: Ticket): Long {
+        if (!bag.hasInvitation) {
+            bag.minusAmount(ticket.fee)
+        }
+
+        bag.setTicket(ticket)
+        return ticket.fee
+    }
+}
 
 /**
  * 초대장

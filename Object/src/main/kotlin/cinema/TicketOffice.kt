@@ -29,5 +29,10 @@ class TicketOffice(
  * 매표소 직원
  */
 class TicketSeller(
-    val ticketOffice: TicketOffice,
-)
+    private val ticketOffice: TicketOffice,
+) {
+    fun sellTo(audience: Audience) {
+        val amount = audience.buy(ticketOffice.getTicket())
+        ticketOffice.plusAmount(amount)
+    }
+}
