@@ -16,11 +16,6 @@ data class Reference(val url: String) {
 data class Location(val name: String)
 data class Content(val value: String)
 
-suspend fun downloadContent(loc: Location): Content = coroutineScope {
-    delay(1000)
-    Content(loc.name)
-}
-
 fun processContent(c: Content) {
     return
 }

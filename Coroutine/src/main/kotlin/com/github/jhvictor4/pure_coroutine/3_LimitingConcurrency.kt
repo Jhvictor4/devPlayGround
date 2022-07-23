@@ -37,11 +37,6 @@ fun CoroutineScope.worker(
     }
 }
 
-fun processContent(ref: Reference, content: Content) {
-    ref.content = content
-    println("$ref CONTENT REGISTERED. $content")
-}
-
 /**
  * video timeline since 23:00
  *
@@ -56,6 +51,7 @@ fun CoroutineScope.worker(
     locations: ReceiveChannel<Location>,
     contents: SendChannel<LocContent>,
 ) = launch {
+    println("WORKER STARTED")
     for (loc in locations) {
         val content = downloadContent(loc)
         contents.send(LocContent(loc, content))
