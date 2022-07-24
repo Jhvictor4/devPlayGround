@@ -25,6 +25,10 @@ dependencies {
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
+
+	// Coroutine Flow 하고 비교
+	implementation("io.projectreactor:reactor-core:3.4.21")
+	implementation("io.reactivex.rxjava2:rxkotlin:2.4.0")
 }
 
 tasks.withType<KotlinCompile> {
