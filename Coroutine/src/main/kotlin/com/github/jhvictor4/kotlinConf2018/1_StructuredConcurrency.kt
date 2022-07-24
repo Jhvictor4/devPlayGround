@@ -1,8 +1,7 @@
-package com.github.jhvictor4.pure_coroutine
+package com.github.jhvictor4.kotlinConf2018
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**

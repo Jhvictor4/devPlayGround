@@ -1,4 +1,4 @@
-package com.github.jhvictor4.pure_coroutine
+package com.github.jhvictor4.kotlinConf2018
 
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
