@@ -18,6 +18,6 @@ class User(
 
     @Column
     @NotNull
-    val roles: String="",
+    val roles: String = "",
 
 ) : BaseTimeEntity()

@@ -9,11 +9,8 @@ import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Component
-import java.io.BufferedReader
-import java.io.FileReader
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
 
 @Component
 class DataLoader(
@@ -21,23 +18,25 @@ class DataLoader(
     private val surveyResponseRepository: SurveyResponseRepository,
 ) : ApplicationRunner {
 
+    private val tsvFilePath = "data/example_surveyresult.tsv"
+
     /**
      * Runs automatically whe Application starts.
      */
     override fun run(args: ApplicationArguments) {
-        operatingSystemRepository.saveAll(listOf(
-            OperatingSystem.of(OperatingSystemType.Windows, price = 200000),
-            OperatingSystem.of(OperatingSystemType.MacOS, price = 300000),
-            OperatingSystem.of(OperatingSystemType.Linux, price = 0),
-        ))
+        operatingSystemRepository.saveAll(
+            listOf(
+                OperatingSystem.of(OperatingSystemType.WINDOWS, price = 200000),
+                OperatingSystem.of(OperatingSystemType.MAC_OS, price = 300000),
+                OperatingSystem.of(OperatingSystemType.LINUX, price = 0),
+            )
+        )
 
-        BufferedReader(FileReader(ClassPathResource("data/example_surveyresult.tsv").file))
-            .use { br ->
-                br.readLines()
-                    .map { parseLine(it) }
-                    .toList()
-                    .let(surveyResponseRepository::saveAll)
-            }
+        ClassPathResource(tsvFilePath)
+            .file
+            .readLines()
+            .map { line -> parseLine(line) }
+            .let(surveyResponseRepository::saveAll)
     }
 
     private fun parseLine(parseLine: String): SurveyResponse {
