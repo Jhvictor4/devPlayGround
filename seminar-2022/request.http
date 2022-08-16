@@ -1,0 +1,24 @@
+### SignUp
+POST http://localhost:8080/api/v1/users
+Content-Type: application/json
+
+{
+  "email": "wlgur7238@snu.ac.kr",
+  "password": "1234"
+}
+
+### SignIn
+
+POST http://localhost:8080/api/v1/users/signin
+Content-Type: application/json
+
+{
+  "email": "wlgur7238@snu.ac.kr", 
+  "password": "1234"
+}
+
+###
+
+GET http://localhost:8080/api/v1/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NjA2NzM3MzgsImlhdCI6MTY2MDY2MzczOCwiZW1haWwiOiJ3bGd1cjcyMzhAc251LmFjLmtyIn0.HKBFZbTGfw9sWjGZ0j8Udk2qtnRx18j5sbkbFUHTaIk

@@ -7,4 +7,4 @@ spring:
             # TODO 숙제 : 개선을 어떻게 할 수 있을지 알아보자~
             client-id: ${CLIENT_ID} 
             client-secret: ${CLIENT_SECRET}
-          
+  jpa.show-sql: true

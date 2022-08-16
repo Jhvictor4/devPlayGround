@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull
 class User(
     @Column(unique = true)
     @NotBlank
-    val username: String,
+    val email: String,
 
     @Column
     @NotBlank
@@ -20,4 +20,4 @@ class User(
     @NotNull
     val roles: String = "",
 
-) : BaseTimeEntity()
+    ) : BaseTimeEntity()
