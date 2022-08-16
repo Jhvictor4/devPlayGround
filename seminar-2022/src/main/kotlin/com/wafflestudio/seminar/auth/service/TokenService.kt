@@ -1,7 +1,6 @@
 package com.wafflestudio.seminar.auth.service
 
 import com.wafflestudio.seminar.auth.model.Token
-import com.wafflestudio.seminar.auth.model.UserPrincipal
 import com.wafflestudio.seminar.domain.user.UserRepository
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
@@ -12,9 +11,6 @@ import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.SignatureException
 import io.jsonwebtoken.UnsupportedJwtException
 import org.slf4j.LoggerFactory
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.Authentication
-import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -34,9 +30,13 @@ class TokenService(
     private val jwtExpirationInMs: Long = 10000000
 
     // Generate jwt token with prefix
-    fun generateToken(authentication: Authentication): Token {
-        val userPrincipal = authentication.principal as UserPrincipal
-        val claims: MutableMap<String, Any> = hashMapOf("email" to userPrincipal.user.email)
+//    fun generateToken(authentication: Authentication): Token {
+//        val userPrincipal = authentication.principal as UserPrincipal
+//        return generateTokenByEmail(userPrincipal.user.email)
+//    }
+    
+    fun generateTokenByEmail(email: String): Token {
+        val claims: MutableMap<String, Any> = hashMapOf("email" to email)
         val now = Date()
         val expiryDate = Date(now.time + jwtExpirationInMs)
         val resultToken = tokenPrefix + Jwts.builder()
@@ -81,12 +81,17 @@ class TokenService(
         return Jwts.parser().setSigningKey(jwtSecretKey).parseClaimsJws(prefixRemoved)
     }
     
-    fun getCurrentAuth(authToken: String): Authentication {
+//    fun getCurrentAuth(authToken: String): Authentication {
+//        val email = parse(authToken).body["email"].toString()
+//        val member = userRepository.findByEmail(email)
+//            ?.let(::UserPrincipal)
+//            ?: throw UsernameNotFoundException("${email}에 해당하는 계정이 없습니다.")
+//        return UsernamePasswordAuthenticationToken(member.username, member.password, member.authorities)
+//    }
+    
+    fun getCurrentUserId(authToken: String): Long {
         val email = parse(authToken).body["email"].toString()
-        val member = userRepository.findByEmail(email)
-            ?.let(::UserPrincipal)
-            ?: throw UsernameNotFoundException("${email}에 해당하는 계정이 없습니다.")
-        return UsernamePasswordAuthenticationToken(member.username, member.password, member.authorities)
+        return userRepository.findByEmail(email)!!.id
     }
 }
 
